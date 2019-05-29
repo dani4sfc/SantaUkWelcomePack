@@ -133,7 +133,7 @@ public class TeamServiceImpl  implements TeamService{
 //			}
 //			
 //		}
-//
+
 	}
 
 	
@@ -166,29 +166,29 @@ public class TeamServiceImpl  implements TeamService{
 	}
 
 
-	public void plusPointsByPlayerSetGreaterThan(Integer points){
-		
-		List<TeamDTO> lista = mapper.toDTO(repository.findAll());
-		
-		TeamDTO primero = lista.get(0);
-		
-		int ultimo = lista.size();
-
-		
-		int primerId = primero.getIdTeam();
-		
-		
-		for(int i = primerId; i <= ultimo; i++) {
-			
-			
-			if (repository.findById(i).get().getPlayerSet().size() <1) {
-				
-				repository.findById(i).get().setPoints(repository.findById(i).get().getPoints() + points);
-
-			}
-			
-		}
-	
-	}
+//	public void plusPointsByPlayerSetGreaterThan(Integer points){
+//		
+//		List<TeamDTO> lista = mapper.toDTO(repository.findAll());
+//		
+//		TeamDTO primero = lista.get(0);
+//		
+//		int ultimo = lista.size();
+//
+//		
+//		int primerId = primero.getIdTeam();
+//		
+//		
+//		for(int i = primerId; i <= ultimo; i++) {
+//			
+//			
+//			if (repository.findById(i).get().getPlayerSet().size() <1) {
+//				
+//				repository.findById(i).get().setPoints(repository.findById(i).get().getPoints() + points);
+//
+//			}
+//			
+//		}
+//	
+//	}
 
 }
