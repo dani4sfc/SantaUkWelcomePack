@@ -43,6 +43,13 @@ public interface TeamService {
 	
 	public void deleteTeamById(Integer points);
 	
-	public void plusPointsByPlayerSetGreaterThan(Integer points);
+	//Siguiente metodo, dar puntos a equipos con x jugadores
+	
+	public void plusPointsByPlayerSetLenghtGreaterThan(Integer players);
+	
+	
+	//metodo complementario a anterior
+	public List<TeamDTO> findByPlayerSetLenghtGreaterThan(Integer players);
+
 
 }
