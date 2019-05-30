@@ -95,10 +95,15 @@ public interface TeamRepository extends CrudRepository<TeamEntity, Integer>, Jpa
 	List<TeamEntity> deleteByPointsLessThan(Integer points);
 	
 	
-//	Añadir x puntos a equipos con mas de 2 jugadores
+	//Añadir x puntos a equipos con mas de 2 jugadores
 	@Modifying
 	@Transactional
-	void plusPointsByPlayerSetGreaterThan(Integer points);
+	void plusPointsByPlayerSetLenghtGreaterThan(Integer players);
+	
+	
+	//Buscar equipos con jugadores dados
+	public List<TeamEntity> findByPlayerSetLenghtGreaterThan(Integer players);
+
 	
 	
 	//select *, count(t.idTeam) as contador from team t, player p where p.idTeam = t.idTeam group by t.idTeam  having COUNT(contador) > 1;

@@ -164,10 +164,38 @@ public class TeamServiceImpl  implements TeamService{
 		
 		return mapper.toDTO(repository.findTeamPlayer(nom));
 	}
+	
+	///////////////////////////	
+    //metodo complementario a siguiente
+	///////////////////////////
+	public List<TeamDTO> findByPlayerSetLenghtGreaterThan(Integer players){
+		
+		return mapper.toDTO(repository.findByPlayerSetLenghtGreaterThan(players));
+		
+	}
 
-
-//	public void plusPointsByPlayerSetGreaterThan(Integer points){
-//		
+	//Siguiente metodo, probar si puedo implementarlo sin lógica. Int que pilla tamaño de playerSet y compararlo al int dado por parametro, sumar puntos pasados por parametro
+	public void plusPointsByPlayerSetLenghtGreaterThan(Integer players) {
+				
+		
+		//repository.plusPointsByPlayerSetLenghtGreaterThan(players);
+		
+		List<TeamDTO> dto = mapper.toDTO(repository.findByPlayerSetLenghtGreaterThan(players));
+		
+		
+		//int numplayers = 
+//				for(int i = dto.; i < dto.size(); i++) {
+//					
+//				}
+				
+		
+//		if (players < numplayers) {
+//			
+//			
+//		}
+		
+	}
+				
 //		List<TeamDTO> lista = mapper.toDTO(repository.findAll());
 //		
 //		TeamDTO primero = lista.get(0);
@@ -187,8 +215,6 @@ public class TeamServiceImpl  implements TeamService{
 //
 //			}
 //			
-//		}
-//	
-//	}
+//		}	
 
 }

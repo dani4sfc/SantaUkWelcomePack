@@ -19,6 +19,8 @@ public class TeamDTO {
 	
 
 	private Set<PlayerDTO> playerSet = new HashSet<PlayerDTO>();
+	
+	private int playerSetLenght;
 
 	
 }

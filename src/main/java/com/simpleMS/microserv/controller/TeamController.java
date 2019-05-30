@@ -84,10 +84,10 @@ public class TeamController {
 	
 	//PENULTIMA QUERY
 	//Sumar Puntos a equipos con más de 2 jugadores
-	@PatchMapping(path="/plusPointsTeam", consumes="application/json")
-	public void plusTeams(@RequestParam Integer points) {
-		 service.plusPointsByPlayerSetGreaterThan(points);
-	}
+//	@PatchMapping(path="/plusPointsTeam", consumes="application/json")
+//	public void plusTeams(@RequestParam Integer points) {
+//		 service.plusPointsByPlayerSetGreaterThan(points);
+//	}
 	
 	//--------------DELETE-----------
 	@DeleteMapping(path="/deleteTeams/{id}")
