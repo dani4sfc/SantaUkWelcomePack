@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.simpleMS.microserv.dto.PageablePlayerDTO;
@@ -56,7 +55,6 @@ public class PlayerServiceImpl implements PlayerService {
 	public List<PlayerDTO> selectAllPlayersOrder() {
 		return mapper.toDTO(repository.selectAllPlayersOrder());
 
-		// result.setPage(page.getPageable());
 
 	}
 
@@ -71,9 +69,5 @@ public class PlayerServiceImpl implements PlayerService {
 		return result;
 	}
 
-//	@Override
-//	public List<PlayerDTO> findAllOrderById() {
-//		// TODO Auto-generated method stub
-//		return mapper.toDTO(repository.findByNameOrderByIdPlayer());
-//	}
+
 }

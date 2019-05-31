@@ -9,7 +9,6 @@ public class PlayerDTO {
 	private String name;
 	private int num;
 	private String position;
-//	private int idTeam;
 	
 	private TeamDTO team;
 	

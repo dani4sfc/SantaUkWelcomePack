@@ -9,11 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -56,4 +53,6 @@ public class TeamEntity {
 	
 	@OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
 	private Set<PlayerEntity> playerSet = new HashSet<PlayerEntity>();
+	
+
 }

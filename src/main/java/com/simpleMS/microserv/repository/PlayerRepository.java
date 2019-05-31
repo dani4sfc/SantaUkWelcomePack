@@ -2,8 +2,6 @@ package com.simpleMS.microserv.repository;
 
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -24,10 +22,11 @@ public interface PlayerRepository extends CrudRepository<PlayerEntity, Integer>,
 	
 //	@Query(value="select p from PlayerEntity p order by p.name 	limit :max offset :off", nativeQuery=true)
 	
-	public Page<PlayerEntity> findAll(Pageable pageable);
+//	public Page<PlayerEntity> findAll(Pageable pageable);
 		
 	
-	
+
+
 
 	
 	

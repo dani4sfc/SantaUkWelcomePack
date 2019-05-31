@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.simpleMS.microserv.dto.PlayerDTO;
 import com.simpleMS.microserv.dto.TeamDTO;
 import com.simpleMS.microserv.entity.TeamEntity;
 import com.simpleMS.microserv.mapper.TeamMapper;
@@ -19,9 +18,7 @@ public class TeamServiceImpl  implements TeamService{
 	
 	@Autowired
 	TeamMapper mapper;
-	
-//	@Autowired 
-//	TeamEntity entity;
+
 
 	public TeamDTO findTeamById(int id) {
 		return mapper.toDTOTeamNoRelation(repository.findById(id).get());
@@ -43,7 +40,11 @@ public class TeamServiceImpl  implements TeamService{
 		return repository.findByResult(id);
 	}
 
-	
+	@Override
+	public void deleteTeamById(int id) {
+		repository.deleteById(id);
+		
+	}	
 
 	public List<TeamDTO> findAll() {
 		return mapper.toDTO(repository.findAll());
@@ -98,41 +99,12 @@ public class TeamServiceImpl  implements TeamService{
 		
 	}
 	
-	
 
-	public void deleteTeamById(int id) {
-		
-		repository.deleteById(id);
-		
-	}
-	
+
 	//Borrar equipos con menos de puntos dados
-	public void deleteTeamById(Integer points) {
+	public void deleteTeamByPoints(Integer points) {
 
 		repository.deleteByPointsLessThan(points);
-		
-		//BRUTALIDAD:
-		
-//		List<TeamDTO> lista = mapper.toDTO(repository.findAll());
-//		
-//		TeamDTO primero = lista.get(0);
-//		
-//		int ultimo = lista.size();
-//
-//		
-//		int primerId = primero.getIdTeam();
-//		
-//		
-//		for(int i = primerId; i <= ultimo; i++) {
-//			
-//			
-//			if (repository.findById(i).get().getPoints() <1) {
-//				
-//				repository.deleteById(i);
-//
-//			}
-//			
-//		}
 
 	}
 
@@ -164,37 +136,21 @@ public class TeamServiceImpl  implements TeamService{
 		
 		return mapper.toDTO(repository.findTeamPlayer(nom));
 	}
-	
-	///////////////////////////	
-    //metodo complementario a siguiente
-	///////////////////////////
-	public List<TeamDTO> findByPlayerSetLenghtGreaterThan(Integer players){
-		
-		return mapper.toDTO(repository.findByPlayerSetLenghtGreaterThan(players));
+
+	@Override
+	public void plusPointsByPlayerSet(Integer points, Integer players) {
+
+		repository.plusPointsByPlayerSet(points, Long.valueOf(players));
 		
 	}
 
-	//Siguiente metodo, probar si puedo implementarlo sin lógica. Int que pilla tamaño de playerSet y compararlo al int dado por parametro, sumar puntos pasados por parametro
-	public void plusPointsByPlayerSetLenghtGreaterThan(Integer players) {
-				
-		
-		//repository.plusPointsByPlayerSetLenghtGreaterThan(players);
-		
-		List<TeamDTO> dto = mapper.toDTO(repository.findByPlayerSetLenghtGreaterThan(players));
-		
-		
-		//int numplayers = 
-//				for(int i = dto.; i < dto.size(); i++) {
-//					
-//				}
-				
-		
-//		if (players < numplayers) {
-//			
-//			
-//		}
-		
-	}
+
+//	@Override
+//	public List<TeamDTO> plusPointsByPlayerSet2(int points, List<TeamEntity> listOfPlayers) {
+//
+//		return mapper.toDTO(repository.plusPointsByPlayerSet2(points, repository.findAll()));		
+//		
+//	}
 				
 //		List<TeamDTO> lista = mapper.toDTO(repository.findAll());
 //		

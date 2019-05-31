@@ -22,7 +22,5 @@ public interface PlayerService {
 	
 	public PageablePlayerDTO selectAllPlayersOrderPage(PageRequestDto pageReq);
 	
-//	public List<PlayerDTO> findAllOrderById();
-
 
 }

@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.simpleMS.microserv.dto.MatchDTO;
+import com.simpleMS.microserv.dto.PageableMatchDTO;
 import com.simpleMS.microserv.service.MatchServiceImpl;
+import com.simpleMS.microserv.util.PageRequestDto;
 
 //La clase controller debe llevar la anotación @RestController, la cual incluye @Controler + @ResponseBody
 @RestController
@@ -70,13 +72,12 @@ public class MatchController {
 	
 	//------------------------CREATE-----------------
 	//crea bien los registros en la BBDD, pero al devolverlo lee el DTO sin el id autoincrementado, ya que este se asigna en la BBDD
-	//Tengo que buscar una forma de asignarle al dto el id, leyendo eol último registro
+	//Tengo que buscar una forma de asignarle al dto el id, leyendo el último registro
 	@PostMapping(path="/createMatches", consumes= "application/json")
 	public MatchDTO create(@RequestBody MatchDTO dto) {
 		
-		String result;
 		return service.create(dto);
-		
+	
 	}
 	//Cuando creamos un partido, definimos un ganador, hay que comprobar el ganador y darle puntos
 	
@@ -94,34 +95,20 @@ public class MatchController {
 	}
 	
 	
-	//Para usar patch (Modificar solo algunos campos), tengo que crear un método nuevo en service.
-	/*@PatchMapping(path="/updateMatches2", consumes="application/json")
-	//@RequestBody siempre antes del parametro de entrada
-	public MatchDTO updateMatch2(@RequestBody MatchDTO input){
-		
-		service.updateMatch(input);
-		
-		return input;
-	}*/
-	
 	//-----------------------DELETE------------------
 	
 	//Para el delete, ponemos la anotación @DeleteMapping y el path de acceso+id
 	@DeleteMapping(path="/deleteMatches/{id}")
 	public void delete(@PathVariable(value = "id") int id) {
 
-		//if (service.findById(id)!= null) {
+		if (service.findById(id)!= null) {
 			service.deleteMatchById(id);
-
-		//}else {
-			
-		//}
+		}
 	}
 	
 	@GetMapping(path= "/")
 	public List<MatchDTO> findByResultLocalVisitante(@RequestParam String name, @RequestParam(required = false) String isLocal) {
-		//Para lanzar la función o método deseado (almacenados en service) ponemos la instancia de service y . para elegir el método:
-		
+		//Para lanzar la función o método deseado (almacenados en service) ponemos la instancia de service y . para elegir el método:		
 		
 		//Condición para que devuelva una query u otra, en función del parametro isLocal
 		if (isLocal.contentEquals("Local")) {
@@ -136,6 +123,14 @@ public class MatchController {
 		}
 
 	}
+	
+	//Última query, buscar todos los equipos ordenados, con paginación y filtrado por resultado. Empleamos el mismo método que en el método de players. 
+	@GetMapping(path = "/findAllOrderPage")
+	public PageableMatchDTO findMatchByResult(@RequestParam("result") String resultado, @RequestParam("limit") Integer limit, @RequestParam("page") Integer page) {
+		PageRequestDto pageReq =  new PageRequestDto(page, limit, null);
+		return service.findMatchByResult(resultado,pageReq);
+	}
+
 	
 
 

@@ -63,7 +63,6 @@ public interface TeamMapper {
 	
 	@Named ("toTeamNoRelationPlayer")
 	@Mappings({
-		//@Mapping(target="idTeam", source="idTeam"),
 		@Mapping(target="name", source="name"),
 		@Mapping(target="points", source="points"),
 		@Mapping(target="playerSet", source="playerSet", ignore=true)

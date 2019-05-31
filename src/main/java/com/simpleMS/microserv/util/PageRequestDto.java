@@ -5,7 +5,6 @@ import javax.validation.constraints.PositiveOrZero;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
-import com.simpleMS.microserv.entity.TeamEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

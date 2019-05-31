@@ -3,6 +3,8 @@ package com.simpleMS.microserv.service;
 import java.util.List;
 
 import com.simpleMS.microserv.dto.MatchDTO;
+import com.simpleMS.microserv.dto.PageableMatchDTO;
+import com.simpleMS.microserv.util.PageRequestDto;
 
 //Aqui definiremos los métodos que después implementaremos en ServiceImpl, allí, le pasaremos el contenido del repository y les pasaremos el mapeo.
 //Solo creamos los métodos, sin configurarlos, para abstraerlos y poder implementarlos y variarlos cada vez que necesitemos
@@ -49,5 +51,7 @@ public interface MatchService {
 	public 	List<MatchDTO> findByResultLocal(String name, String isLocal);
 
 	public List<MatchDTO> findByResultVisitante(String name, String isVisit);
+	
+	public PageableMatchDTO findMatchByResult(String result, PageRequestDto pageReq);
 
 }

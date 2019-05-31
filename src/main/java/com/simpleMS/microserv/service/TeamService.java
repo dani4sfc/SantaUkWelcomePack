@@ -2,9 +2,7 @@ package com.simpleMS.microserv.service;
 
 import java.util.List;
 
-import com.simpleMS.microserv.dto.PlayerDTO;
 import com.simpleMS.microserv.dto.TeamDTO;
-import com.simpleMS.microserv.entity.TeamEntity;
 
 public interface TeamService {
 	
@@ -34,22 +32,20 @@ public interface TeamService {
 	public TeamDTO findBestVisitorNative() ;
 	
 	public TeamDTO findTeamPlayer(String nom);
-
-//	public 	TeamDTO sumarPuntos(int puntos);
 	
 	public TeamDTO updatePoints(int id, int points);
 	
 	public TeamDTO plusPoints(int id, int points);
 	
-	public void deleteTeamById(Integer points);
+	
+	public void deleteTeamByPoints(Integer points);
+
 	
 	//Siguiente metodo, dar puntos a equipos con x jugadores
 	
-	public void plusPointsByPlayerSetLenghtGreaterThan(Integer players);
+	void plusPointsByPlayerSet(Integer points, Integer players);
 	
+//	public List<TeamDTO> plusPointsByPlayerSet2(int points, List<TeamEntity> listOfPlayers); 
 	
-	//metodo complementario a anterior
-	public List<TeamDTO> findByPlayerSetLenghtGreaterThan(Integer players);
-
 
 }

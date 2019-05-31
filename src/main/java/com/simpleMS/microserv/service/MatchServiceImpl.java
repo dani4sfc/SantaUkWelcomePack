@@ -5,14 +5,18 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.simpleMS.microserv.dto.MatchDTO;
+import com.simpleMS.microserv.dto.PageableMatchDTO;
 import com.simpleMS.microserv.entity.MatchEntity;
 import com.simpleMS.microserv.entity.TeamEntity;
 import com.simpleMS.microserv.mapper.MatchMapper;
 import com.simpleMS.microserv.repository.MatchRepository;
+import com.simpleMS.microserv.util.PageRequestDto;
+import com.simpleMS.microserv.util.Util;
 
 
 
@@ -133,5 +137,19 @@ public class MatchServiceImpl implements MatchService{
 		//TODO hacer logica para dos queries una de local y otra de visitantes segun el input  isLocal
 		return mapper.toDTOLocal((repository.findByResultVisitante(name)));
 	}
+	
+	public PageableMatchDTO findMatchByResult(String resultado, PageRequestDto pageReq) {
+		Pageable pageable = Util.getSortedPageable(pageReq, "idMatch");
+		
+		Page<MatchEntity> page = repository.findByResultado(resultado, pageable);
+		PageableMatchDTO result = new PageableMatchDTO();
+		result.setContent(mapper.toDTO(page.getContent()));
+		result.setPage(new PageRequestDto(page.getPageable().getPageNumber(), page.getPageable().getPageSize(),
+				Math.toIntExact(page.getTotalElements())));
+		return result;
+		
+
+	}
+
 	
 }

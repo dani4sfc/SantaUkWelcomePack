@@ -16,13 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.simpleMS.microserv.dto.PartidosLocalDTO;
-import com.simpleMS.microserv.dto.PlayerDTO;
 import com.simpleMS.microserv.dto.TeamDTO;
-import com.simpleMS.microserv.entity.TeamEntity;
 import com.simpleMS.microserv.service.TeamServiceImpl;
 
-import ch.qos.logback.core.joran.conditional.ElseAction;
 
 
 @RestController
@@ -35,21 +31,11 @@ public class TeamController {
 	 
 	
 	 //-------------GET----------
-
-//	 @GetMapping(path="/{id}")
-//	 public PartidosLocalDTO readByResult(@PathVariable(value = "id")int id) {
-//		 PartidosLocalDTO result = new PartidosLocalDTO();
-//		 result.setTotalPartidosLocal(service.findByResult(id));
-//		 return result;
-//	 } 
-	 
  
 	 @GetMapping(path="/{id}")
 	 public TeamDTO readById(@PathVariable(value = "id")int id) {
 		 return service.findTeamById(id);
 	 }
-	 
-	 
 	 
 	 
 	 //-----------GETALL----------
@@ -82,12 +68,6 @@ public class TeamController {
 		return service.plusPoints(id, points);
 	}
 	
-	//PENULTIMA QUERY
-	//Sumar Puntos a equipos con más de 2 jugadores
-//	@PatchMapping(path="/plusPointsTeam", consumes="application/json")
-//	public void plusTeams(@RequestParam Integer points) {
-//		 service.plusPointsByPlayerSetGreaterThan(points);
-//	}
 	
 	//--------------DELETE-----------
 	@DeleteMapping(path="/deleteTeams/{id}")
@@ -98,7 +78,7 @@ public class TeamController {
 	//--------------DELETE equipos con 0 puntos-----------
 	@DeleteMapping(path="/deleteUselessTeams")
 	public void deleteTeam(@RequestParam Integer points) {
-		service.deleteTeamById(points);
+		service.deleteTeamByPoints(points);
 	}
 
 	
@@ -145,7 +125,6 @@ public class TeamController {
 			}
 	}
 	
-	
 
 //Equipo con jugador dado
 
@@ -158,13 +137,16 @@ public TeamDTO findTeamPlayer(@RequestParam(required = true) String nom) {
 	return service.findTeamPlayer(nom);
 }
 	
-//	//Sumar puntos
-//	@PutMapping(path="/sumarPuntos")
-//
-//	public 	void sumarPuntos(@RequestParam(required = true) int puntos) {
-//
-//		
-//	}
+	
+	
+	//penultima query
+	@PatchMapping(path="/plusPointsByPlayers")
+	public void plusPointsByPlayerSet(@RequestParam (required = true) Integer points, @RequestParam (required = true) Integer players) {
+		
+		service.plusPointsByPlayerSet(points, players);
+		
+	}
+
 
 
 }
