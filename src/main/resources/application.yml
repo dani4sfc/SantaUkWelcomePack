@@ -10,6 +10,6 @@ logging:
   level:
     root: WARN
 #    org.springframework.beans: DEBUG
-    com.simpleMS.microserv.controller: TRACE
-    org.hibernate: DEBUG
+#    com.simpleMS.microserv.controller: TRACE
+#    org.hibernate: DEBUG
 server.port: 8080

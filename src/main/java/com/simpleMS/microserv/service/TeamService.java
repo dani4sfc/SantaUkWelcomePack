@@ -22,9 +22,7 @@ public interface TeamService {
 	
 	public int findByResult(int id);
 	
-	
-	public TeamDTO findBestLocal();
-	
+		
 	public TeamDTO findBestVisitor() ;
 	
 	public TeamDTO findBestLocalNative();

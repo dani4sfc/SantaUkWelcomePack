@@ -24,7 +24,7 @@ import com.simpleMS.microserv.service.TeamServiceImpl;
 @RestController
 @RequestMapping(value="/teams")
 public class TeamController {
-	 private static final Logger LOGGER = LoggerFactory.getLogger(MatchController.class);
+	 private static final Logger LOGGER = LoggerFactory.getLogger(TeamController.class);
 
 	 @Autowired 
 	 private TeamServiceImpl service;
@@ -77,7 +77,7 @@ public class TeamController {
 	
 	//--------------DELETE equipos con 0 puntos-----------
 	@DeleteMapping(path="/deleteUselessTeams")
-	public void deleteTeam(@RequestParam Integer points) {
+	public void deleteTeamPoints(@RequestParam Integer points) {
 		service.deleteTeamByPoints(points);
 	}
 
@@ -109,7 +109,7 @@ public class TeamController {
 	
 	@GetMapping(path="/findBestTeamLV")
 
-	public TeamDTO findBestLocal(
+	public TeamDTO findBestLocalVisitor(
 			
 			//1 == local , 2 == Visitor
 			@RequestParam(required = true) int local) {

@@ -23,7 +23,7 @@ import com.simpleMS.microserv.util.PageRequestDto;
 @RestController
 @RequestMapping(value = "/players")
 public class PlayerController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(MatchController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(PlayerController.class);
 
 	@Autowired
 	private PlayerService service;

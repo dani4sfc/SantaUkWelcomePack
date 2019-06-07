@@ -111,11 +111,7 @@ public class TeamServiceImpl  implements TeamService{
 	
 	//MEJOR LOCAL Y MEJOR VISITOR
 	
-	public TeamDTO findBestLocal() {
-		//return mapper.toDTO(repository.findBestLocal());
-		return mapper.toDTO(repository.findBestLocalNative());
-	}
-	
+
 	public TeamDTO findBestVisitor() {
 		return mapper.toDTO(repository.findBestVisitor().get(0));
 	}
