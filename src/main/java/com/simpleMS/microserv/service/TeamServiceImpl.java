@@ -110,6 +110,7 @@ public class TeamServiceImpl  implements TeamService{
 	public void deleteTeamById(Integer points) {
 
 		repository.deleteByPointsLessThan(points);
+	}
 		
 		//BRUTALIDAD:
 		
