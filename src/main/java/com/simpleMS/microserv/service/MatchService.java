@@ -4,40 +4,42 @@ import java.util.List;
 
 import com.simpleMS.microserv.dto.MatchDTO;
 
-//Aqui definiremos los métodos que después implementaremos en ServiceImpl, allí, le pasaremos el contenido del repository y les pasaremos el mapeo.
-//Solo creamos los métodos, sin configurarlos, para abstraerlos y poder implementarlos y variarlos cada vez que necesitemos
+//We define here the methods that we will implement on ServiceImpl classes, on that class, we will use the repository and the mapper.
+//We define here the methods, without adding logic, in order to abstract them, so we can call them when we need
 
 public interface MatchService {
 	
-	//Métodos CRUD: create, find, delete y update. Los definimos aquí y los implementamos en Serviceimpl
+	//CRUD methods: create, find, delete and update. we define them here and implements them on Serviceimpl
 	
 	//--------------READ:
 	
-	//Buscar un DTO
+	//Search a DTO
 	public MatchDTO findById(int i);
 	
-	//Buscar todos los DTO
+	//Search all DTO
 	public List<MatchDTO> findAll();
 	
 	
 	
 	//-------------CREATE:
 	
-	//Normalmente un create sería tipo void, pero en este caso, debe ser tipo DTO para que se le asigne la ID automaticamente, sinó tendriamos un DTO sin ID y al hacer otras operaciones con el, se le crearían varias IDs, creando duplicidad.
+	//Normally a create would be void type, but in this case, it must be DTO type so that the ID is assigned automatically, 
+	//otherwise we would have a DTO without ID and when doing other operations with it, several IDs would be created, creating duplicity.	
+	
 	//public void create(MatchDTO dto);
 	
-	//Este sería en create correcto, devolviendo un tipo dto, para que se le asigne un id.
+	//This would be a correct create, returning a dto type, so that an id is assigned to it.
 	public MatchDTO create(MatchDTO dto);
 	
 	//-------------UPDATE:
 	
-	//Aqui devolvemos un MatchDTO, para evitar duplicidad al asignar diferentes ids al mismo objeto, pasamos por parametro otro DTO
-	//Una vez pasemos el DTO por parametro, comprobamos que exista (Buscando por su id) y pasamos sus datos al nuevo
+	//Here we return a MatchDTO, to avoid duplicity when assigning different ids to the same object, we pass by parameter another DTO
+	//Once we pass the DTO by parameter, we check that it exists (Searching by its id) and we pass its data to the new one.
 	public MatchDTO updateMatch(MatchDTO input);
 	
 	//--------------DELETE:
 	
-	//El delete debe ser void, ya que no devuelve ningún parametro.
+	//Delete method must be void, because it's not going to return anything.
 	public void deleteMatchById(int id);
 	
 	/**

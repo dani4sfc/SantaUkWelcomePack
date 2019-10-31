@@ -36,12 +36,12 @@ public class PageDTO{
 /** The Constant serialVersionUID. */
 //private static final long serialVersionUID = 2642427949222053008L;
 
-/** Número de página. */
+/** Page number. */
 @NotNull(message = "Field {field} is mandatory")
 @PositiveOrZero(message = "Field {field} should be positive or zero.")
 private int page;
 
-/** Número máximo de registros. */
+/** max register num. */
 @NotNull(message = "Field {field} is mandatory")
 @PositiveOrZero(message = "Field {field} should be positive or zero.")
 private int limit;

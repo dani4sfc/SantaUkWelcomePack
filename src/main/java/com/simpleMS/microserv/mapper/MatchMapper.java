@@ -16,10 +16,10 @@ import com.simpleMS.microserv.entity.MatchEntity;
 public interface MatchMapper {
 	@Mappings({
 		
-		//Aquí definimos fuente y destino, de donde cogemos el dato y a donde lo pasamos,
-		//El target tiene que ser identico a la definicion del atributo de toDTO en este caso, y el source tiene que ser identico al atributo de la Entity en este caso
-		//Esta es la "conversión" de atributos
-		//Podemos utilizar atributo.at1 para coger atributos anidados, siendo "atributo" un objeto y at1 uno de sus atributos
+		//We define here source and target,
+		//The target should matches with the DTO's attribute detinition (In this case), and source should matches with the Entity's attribute definition
+		//Here, we "convert" the attributes
+		//We can use object.at1 to get nested attributes
 		
 		@Mapping(target = "idMatch", source="idMatch"),
 		@Mapping(target = "local", source="local", qualifiedByName = "toTeamDTOLocal"),
@@ -28,8 +28,8 @@ public interface MatchMapper {
 		
 	})
 
-	//Metodos entity to DTO y viceversa, Crean una instancia del dto y reciben como parametro un entity y viceversa.
-	//Estos métodos, toDTO, toENtity, etc. que reciben una clase y devuelven otra, no son mas que un transformador, recibes un objeto MatchDto y devuelves un objetoMatchEntity
+	//Entity toDTO and Dto ToEntity, instances the source class and receives as parameter the target class.
+	//This methods are simply converter methods, they takes an object and turn it into a different one.
 	@Named("toDTOLocal")
 	MatchDTO toDTOLocal(MatchEntity entity);
 	
@@ -39,12 +39,7 @@ public interface MatchMapper {
 
 	
 	@Mappings({
-		
-		//Aquí definimos fuente y destino, de donde cogemos el dato y a donde lo pasamos,
-		//El target tiene que ser identico a la definicion del atributo de toDTO en este caso, y el source tiene que ser identico al atributo de la Entity en este caso
-		//Esta es la "conversión" de atributos
-		//Podemos utilizar atributo.at1 para coger atributos anidados, siendo "atributo" un objeto y at1 uno de sus atributos
-		
+				
 		@Mapping(target = "idMatch", source="idMatch"),
 		@Mapping(target = "local", source="local", qualifiedByName = "toTeamDTONoRelation"),
 		@Mapping(target = "visitante", source="visitante", qualifiedByName = "toTeamDTONoRelation"),
@@ -52,18 +47,16 @@ public interface MatchMapper {
 		
 	})
 
-	//Metodos entity to DTO y viceversa, Crean una instancia del dto y reciben como parametro un entity y viceversa.
-	//Estos métodos, toDTO, toENtity, etc. que reciben una clase y devuelven otra, no son mas que un transformador, recibes un objeto MatchDto y devuelves un objetoMatchEntity
 	@Named("toDTO")
 	MatchDTO toDTO(MatchEntity entity);
 	
 	
-    //Mapeo de listas, este método nos sirve para evitar tener que recorrer listas de MatchDTO con bucle for para transformar
+    //List mapping, this method stave us off iterating lists in order to convert them.
 	@IterableMapping(qualifiedByName = "toDTO")
 	List<MatchDTO> toDTO(List<MatchEntity> entity);
 	
 	@Mappings({
-		//target == atributos del Entity, source == atributos del dto
+		//target == Entity attributes, source == Dto attributes
 		@Mapping(target = "idMatch", source="idMatch"),
 		@Mapping(target = "local.idTeam", source="idLocal"),
 		@Mapping(target = "visitante.idTeam", source="idVisitante"),

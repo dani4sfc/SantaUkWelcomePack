@@ -16,7 +16,7 @@ import com.simpleMS.microserv.repository.MatchRepository;
 
 
 
-//La anotación @Service es importante para que Spring identifique esta clase, así podremos hacer @Autowired al instanciarla en otra clase
+//The @Service annotation it's necessary so that Spring detects this class as Service class, So that we will be able to use @Autowired while instantiate it on another class
 @Service
 public class MatchServiceImpl implements MatchService{
 
@@ -27,7 +27,7 @@ public class MatchServiceImpl implements MatchService{
 	MatchMapper mapper;
 	
 	
-	//En esta capa (service) hacemos la llamada a los metodos mapper para pasar de DTO a entity y viceversa
+	//On this layer (service) we call the mapper methods to convert Entities and Dtos
 	@Override
 	public MatchDTO findById(int id) {
 		return mapper.toDTO(repository.findById(id).get());
@@ -36,54 +36,55 @@ public class MatchServiceImpl implements MatchService{
 	@Override
 	public List<MatchDTO> findAll() {
 		
-		//Con este método mapearíamos una Lista y la pasaríamos transformada a otra:
+		//With this method we would map a List and pass it transformed to another one:
 		
-		//Creamos una lista de DTO y la instanciamos:
+		//We create a DTO list y instanciate it:
 //		List<MatchDTO> result = new ArrayList<MatchDTO> ();
 		
-		//Cogemos una lista de la Entity y hacemos un findAll:
+		//We take an Entity list and use findAll:
 //		List<MatchEntity> findAll = repository.findAll();
 		
-		//Creamos un bucle en el que recorremos la lisya de Entitys y las vamos añadiendo a result, la lista de DTO
+		//We iterate the Entity list and add each iteration to the result list (DTO)
 //		for (MatchEntity entity: findAll ) {
 //			result.add(mapper.toDTO(entity));
 //		}
 //		return result;
 		
 		
-		//Este método nos evita tener que hacer el procedimiento anterior con el bucle for
+		//This method avoids us having to do the previous procedure with the for loop.
 		return mapper.toDTO(repository.findAll());
 	}
 	
 	@Override
-	//Utilizamos el método save para crear, devolveremos un objeto tipo MatchDTO para obligar a crear ID
+	//We use the save method to create, we will return a MatchDTO object to force to create ID.
 	public MatchDTO create(MatchDTO dto) {
-		//Como el método save solo acepta entity, hacemos un mapeo a entity
+		//The ave method just accepts entity, so we map to Entity
 		MatchEntity saved = repository.save(mapper.toEntity(dto));
-		//Devolvemos el dto mapeando la entity
+		//we return the DTO mapping entity
 		return  mapper.toDTO(saved);
-		//Si los atributos de DTO y Entity fueran distintos, deberíamos mapearlos uno a uno.
+		//If the attributes of Entity and DTO were distinct, we should map them individually
 		
 	}
 
-	//El método update se crea igual que el create, con save, ya que si detecta que hay datos al crear, sobreescribe
-	//Hay que tener en cuenta que si al updatear solo ponemos 3 atributos, habiendo 5, 2 se quedarían en null.
-	//Para evitarlo, hacemos un findById, sacamos todos los atributos y los vamos seteando.
+	//The update method is created in the same way as the create method, with save, because if it detects that there is data when creating, it overwrites
+	//It must be taken into account that if when updating we only put 3 attributes, having 5, 2 would remain in null.
+	//To avoid it, we make a findById, we take out all the attributes and we set them.
 	@Override
 	
-	//Update: Pasamos por parametro un DTO (Json), lo actualiza y nos devuelve otro DTO
+	//Update: We pass a DTO as parameter (Json), and we receive the updated one
 	@Transactional
 	public MatchDTO updateMatch(MatchDTO input) {
-		//buscamos el objeto en BBDD por ID y lo volvamos en una variable dtoBBDD
+		
+		//We look for the object in BBDD by ID and dumpt it in a variable dtoBBDD
 		MatchDTO dtoBBDD = this.findById(input.getIdMatch());
 		
-		//Creamos un nuevo DTO llamado result, en el volcaremos los datos.
+		//We create a new DTO: result, we will dump the data into result.
 		MatchDTO result = new MatchDTO();
-		//Comprobamos que el DTO source, el que pasamos por parámetro, no sea null
+		//We check that the DTO parameter is not null (In order to avoid nullPointerExceptions)
 		if (dtoBBDD != null) {
 						
 			
-			//Creamos un Entity creado a partir del DTO pasado por parámetro
+			//We create an Entity created from the DTO passed by parameter
 			MatchEntity entity = mapper.toEntity(dtoBBDD);	
 			TeamEntity local = entity.getLocal();
 			local.setIdTeam(input.getIdLocal());
@@ -91,21 +92,21 @@ public class MatchServiceImpl implements MatchService{
 			visitante.setIdTeam(input.getIdVisitante());
 	//		visitante.getMatchVisitanteSet().add(entity);
 	//		local.getMatchLocalSet().add(entity);
-			//Añadimos los valores a dicho Entity cogidos del DTO pasado por parámetro, salvo el ID autoincremental
+			//We add the values to that Entity taken from the DTO passed by parameter, except the autoincremental ID
 
 			
 			entity.setLocal(local);
 			entity.setVisitante(visitante);
 			entity.setResultado(input.getResultado());
 			
-			//Ya tenemos el entity con todos sus datos (Salvo el id, que se generará automaticamente al crearlo)
-			//Ahora lanzamos el metodo save en el entity y este lo mapeamos en el DTO result
+			//We already have the entity with all its data (Except the id, which will be generated automatically when creating it)
+			//We launch the save method on entity and we map it on the result DTO
 			MatchEntity save = repository.saveAndFlush(entity);
 			result = mapper.toDTO(save);
-			//Devolvemos el result actualizado
+			//We return the updated result
 			return result;
 			
-			//Si no existe el DTO, devolvemos un null
+			//If doesn't exist, retuns null
 		}else {
 		return null;
 		
@@ -114,7 +115,7 @@ public class MatchServiceImpl implements MatchService{
 	}
 	
 	
-	//Para el delete, solo debemos pasar un id, y se borrará el objeto con dicho id
+	//For deleting, we just give it an id by parameter, and the object with that id will be deleted.
 	@Override
 	public void deleteMatchById(int id) {
 			
@@ -124,13 +125,11 @@ public class MatchServiceImpl implements MatchService{
 	
 	@Override
 	public 	List<MatchDTO> findByResultLocal(String name, String isLocal) {
-		//TODO hacer logica para dos queries una de local y otra de visitantes segun el input  isLocal
 		return mapper.toDTOLocal((repository.findByResultLocal(name)));
 	}
 	
 	@Override
 	public 	List<MatchDTO> findByResultVisitante(String name, String isVisit) {
-		//TODO hacer logica para dos queries una de local y otra de visitantes segun el input  isLocal
 		return mapper.toDTOLocal((repository.findByResultVisitante(name)));
 	}
 	

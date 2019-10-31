@@ -147,7 +147,7 @@ public class TeamController {
 	
 	
 
-//Equipo con jugador dado
+//Team with given player
 
 	
 	@GetMapping(path="/findPlayerTeam")

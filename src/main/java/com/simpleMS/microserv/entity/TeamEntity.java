@@ -34,15 +34,14 @@ public class TeamEntity {
 	@Column(name = "IDTEAM")
 	private int idTeam;
 	
-	//Declaramos una relacion de muchos a 1, que estará relacionada con MatchEntity (1:N)
+	//We comment this attribute, Because in the ManyToOne relation, we already defined the attribute with joinColumn.
 	@OneToMany(mappedBy = "local", cascade = CascadeType.ALL)
 //    @JoinColumn(name="IDMATCH", nullable=false)	
-	//Instanciamos el MatchEntity que usaremos para mapear la relacion (Definido en el MatchEntity)
+	//We instance MatchEntity which we will use to map the relation (Defined on MatchEntity)
 	private Set<MatchEntity> matchLocalSet = new HashSet<MatchEntity>();
 	
 	@OneToMany(mappedBy = "visitante", cascade = CascadeType.ALL)
 //  @JoinColumn(name="IDMATCH", nullable=false)	
-	//Instanciamos el MatchEntity que usaremos para mapear la relacion (Definido en el MatchEntity)
 	private Set<MatchEntity> matchVisitanteSet = new HashSet<MatchEntity>();
 	
 
@@ -52,7 +51,7 @@ public class TeamEntity {
 	@Column(name = "POINTS")
 	private int points;
 	
-	//Relacion team-players
+	//Relation team-players
 	
 	@OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
 	private Set<PlayerEntity> playerSet = new HashSet<PlayerEntity>();

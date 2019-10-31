@@ -2,10 +2,10 @@ package com.simpleMS.microserv.dto;
 
 import lombok.Data;
 
-//El DTO es como un transformador entre Entity y la API, al igual que Entity, lo es entre BBDD y DTO o Services
-//Dichas transformaciones se realizan mediante mapeos bidireccionales
+//The DTO is like a transformer between Entity and the API, just like Entity, it is a transformer between BBDD and DTO or Services.
+//These transformations are carried out by means of bidirectional mappings.
 
-//La anotacion @Data es de lombok, agrupa todas las anotaciones de getters, setters y constructores.
+//The annotation @Data is from lombok, it groups all the annotations of getters, setters and builders.
 @Data
 public class MatchDTO {
 	

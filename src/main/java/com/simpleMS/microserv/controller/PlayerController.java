@@ -42,7 +42,7 @@ public class PlayerController {
 
 	}
 
-	// QUERY ORDER Y PAGINATION
+	// QUERY ORDER AND PAGINATION
 	@GetMapping(path = "/findAllOrder")
 	public List<PlayerDTO> selectAllPlayersOrder() {
 		return service.selectAllPlayersOrder();

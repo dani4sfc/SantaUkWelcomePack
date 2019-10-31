@@ -70,7 +70,7 @@ public class TeamServiceImpl  implements TeamService{
 		
 	}
 	
-	//Establecer y sumar puntos
+	//Establish and sum points
 	
 	public TeamDTO updatePoints(int id, int points) {
 		TeamDTO dtoBBDD = this.findTeamById(id);
@@ -106,13 +106,12 @@ public class TeamServiceImpl  implements TeamService{
 		
 	}
 	
-	//Borrar equipos con menos de puntos dados
+	//Delete teams with points less than...
 	public void deleteTeamById(Integer points) {
 
 		repository.deleteByPointsLessThan(points);
 	}
 		
-		//BRUTALIDAD:
 		
 //		List<TeamDTO> lista = mapper.toDTO(repository.findAll());
 //		
@@ -138,7 +137,7 @@ public class TeamServiceImpl  implements TeamService{
 //	}
 
 	
-	//MEJOR LOCAL Y MEJOR VISITOR
+	//Best local/Best visitor
 	
 	public TeamDTO findBestLocal() {
 		//return mapper.toDTO(repository.findBestLocal());
@@ -159,7 +158,7 @@ public class TeamServiceImpl  implements TeamService{
 		return mapper.toDTO(repository.findBestVisitorNative());
 	}
 	
-	//Equipo que tiene al jugador dado:
+	//Team with the given player:
 	
 	public TeamDTO findTeamPlayer(String nom) {
 		

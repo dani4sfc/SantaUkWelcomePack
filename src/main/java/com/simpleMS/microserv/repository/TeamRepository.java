@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import com.simpleMS.microserv.entity.TeamEntity;
 
-//La queries nombradas, deben ir aqui, en la cabecera
+//Named queries must be defined here, on the "header"
 
 @NamedQueries({
 	@NamedQuery(name = "BestLocal", query = "select t.name from TeamEntity t, MatchEntity m where t.idTeam = m.visitante.idTeam and result ='Visitante' group by t.name order  by count(t) desc")
@@ -25,7 +25,7 @@ import com.simpleMS.microserv.entity.TeamEntity;
 
 @Repository
 public interface TeamRepository extends CrudRepository<TeamEntity, Integer>, JpaRepository<TeamEntity, Integer>{
-	//Aqui creamos métodos personalizados, este por ejemplo, devuelve un objeto tipo TeamEntity, filtrado por el atributo teamName
+	//Custom queries, this for example, returns a teamEntity object, filtering the teamName attribute 
 	
 	TeamEntity findByName(String name);
 	
@@ -42,7 +42,7 @@ public interface TeamRepository extends CrudRepository<TeamEntity, Integer>, Jpa
 	
 	//(@Param ('id')int id)
 	
-	//MEJOR LOCAL Y VISITOR
+	//Best local/visitor
 	
 	@Query("select t from TeamEntity t, MatchEntity m where t.idTeam = m.local.idTeam and result ='Local' group by t.name order  by count(t) desc")
 	//@Query("select team from TeamEntity team, MatchEntity matches where team.idTeam = matches.local.idTeam and matches.resultado = 'LOCAL' group by team.idTeam")
@@ -84,18 +84,17 @@ public interface TeamRepository extends CrudRepository<TeamEntity, Integer>, Jpa
 //	
 //	BestLocal.setMax()
 	
-	//Equipo que tiene al jugador dado por parámetro
+	//Team which contains a player with the given name (By parameter)
 	
 	@Query("select t from TeamEntity t, PlayerEntity  p where t.idTeam = p.team.idTeam and p.name = :nom")
 	TeamEntity findTeamPlayer(String nom);
 	
-//	Borrar equipos con menos de x puntos
+//	Delete teams by points
 	@Modifying
 	@Transactional
 	List<TeamEntity> deleteByPointsLessThan(Integer points);
 	
-	
-//	Añadir x puntos a equipos con mas de 2 jugadores
+
 	@Modifying
 	@Transactional
 	void plusPointsByPlayerSetGreaterThan(Integer points);

@@ -21,27 +21,27 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-//Con la anoptación Entity, informamos a Spring que esta es la clase que contiene el modelo de datos de la bbdd.
+//With Entity anoptation, we inform Spring that this is the class that contains the bbdd data model.
 @Entity
 //La anotacion table sirve para dar informacion sobre la tabla, como el nombre que tiene en la bbdd
 @Table(name ="matches")
-//Las anotaciones @Getter, @Setter, @NoArgsConstructor y @AllArgsContructor, son de lombok, que permite crear dinamicamente dichos métodos.
+//The table annotation is used to give information about the table, such as the name it has in the bbdd.
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class MatchEntity {
-	//Con la anotación @OneToMany establecemos la relacion entre tablas, en este caso, de una a muchas.
-	//La anotación @Id indica que el siguiente atributo es el id de la tabla
+	//With the annotation @OneToMany we establish the relationship between tables, in this case, from one to many.
+	//The @Id annotation indicates that the following attribute is the table id
 	@Id
-	//La anotacion @GeneratedValue indica el modo en el que se genera el id, en este caso, autoincremental
+	//The annotation @GeneratedValue indicates how the id is generated, in this case, autoincremental.
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	//Con la anotacion @Column, al igual que con @Table, damos info de la columna, como el nombre que lleva en la bbdd
+	//With the annotation @Column, as with @Table, we give info of the column, as the name that takes in the bbdd
 	@Column(name ="IDMATCH")
 //	@NotEmpty
 	private int idMatch;
 	
-	//Al ser una relacion N:1, aqui establecemos el @ManyToOne y hacemos un Join con la clave.
+	//Al to be a relation N:1, here we establish the @ManyToOne and make a Join with the key.
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "IDLOCAL")
 	private TeamEntity local;
@@ -57,7 +57,7 @@ public class MatchEntity {
 	
 	
 	
-	//LOS ATRIBUTOS SIEMPRE SON PRIVATE, YA QUE LOS COGEMOS CON LOS GETTERS
+	// THE ATTRIBUTES ARE ALWAYS PRIVATE, SINCE WE TAKE THEM WITH THE GETTERS
 	
 
 }

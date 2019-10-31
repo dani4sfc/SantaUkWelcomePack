@@ -18,25 +18,25 @@ import org.springframework.web.bind.annotation.RestController;
 import com.simpleMS.microserv.dto.MatchDTO;
 import com.simpleMS.microserv.service.MatchServiceImpl;
 
-//La clase controller debe llevar la anotación @RestController, la cual incluye @Controler + @ResponseBody
+//The Controller class should has the annotation @RestController, which includes  @Controler + @ResponseBody
 @RestController
 
-//Con la anotación @Request Mapping, asociamos una url a un método, en este caso, /matches sería el padre, a partir de aqui, saldrían otros métodos /matches/damePartido...
+//With the annotation @Request Mapping, we link an url to a method, in this case, /matches it's the father, from there, there will pend other methods: /matches/damePartido...
 @RequestMapping(value="/matches")
 public class MatchController {
 	
-	//La clase logger la creamos a partir del import slf4j.Logger, sirve para personalizar la traza de mensajes y errores, mediante el application.yml y desde la propia clase en la que se inyecta
+	//The logger class that we are creating it's from the import slf4j.Logger, It's for printing messages and errors while executing the code, with the application.yml and by the class where it's inyected
 	 private static final Logger LOGGER = LoggerFactory.getLogger(MatchController.class);
-	//Aqui creamos el CRUD API REST
+	//Here we create the CRUD API REST
 	
-	//Instanciamos un objeto de service con @Autowired, donde tenemos definidos todos los métodos, para acceder a ellos
+	//We instance and Service object with @Autowired, where we have all the methods defined, in order to access them
 	@Autowired
 	private MatchServiceImpl service;
 
-	//Creamos el método READ, GET, para devolver un objeto dando por parámetro el id:
+	//We create READ, GET, in order to return an object by a given id:
 	
 	//---------------------GET-----------------
-	//Podemos hacerlo de 2 formas: con @RequestMapping o con @GetMapping, el GetMapping lo hace más sencillo
+	//We can do it on 2 ways: with @RequestMapping or with @GetMapping, the GetMapping make it easier
 	
 	/*@RequestMapping( method = RequestMethod.GET, params = { "matchId" })
 	public MatchEntity readById() {
@@ -44,33 +44,32 @@ public class MatchController {
 	}*/
 
 	/*
-	 * ESTE método pasaría 2 parametros de entrada
+	 * THis method receives 2 parameters
 	 * @GetMapping(path= "/{id}{id2}")
 	public MatchEntity readById2(@PathVariable(value = "id") int id, @PathVariable(value = "id") int id2) {
 		return null;
 	}*/
 
 	
-	//Este método devuelve un Json de DTO cuyo id coincide con el puesto en API REST
+	//THis method returns a DTO Json, which id matches with the id we set on the API REST
 	@GetMapping(path= "/{id}")
 	public MatchDTO readById(@PathVariable(value = "id") int id) {
-		//Para lanzar la función o método deseado (almacenados en service) ponemos la instancia de service y . para elegir el método:
+		//In order to execute a method/function (stored in service) we set an instance of service and . for choose the method:
 		return service.findById(id);
 				
 	}
 	
 	//----------------GET ALL-------------
 	@GetMapping(path= "/findAll")
-	//Aquí simplemente creamos una lista de DTO's y devolvemos dicha lista
+	//Here we simply create a list of DTO's and return the list.
 	public List<MatchDTO> readAll() {
-		//Para lanzar la función o método deseado (almacenados en service) ponemos la instancia de service y . para elegir el método:
+		//To launch the desired function or method (stored in service) we put the instance of service and . to choose the method:
 		return service.findAll();
 				
 	}
 	
 	//------------------------CREATE-----------------
-	//crea bien los registros en la BBDD, pero al devolverlo lee el DTO sin el id autoincrementado, ya que este se asigna en la BBDD
-	//Tengo que buscar una forma de asignarle al dto el id, leyendo eol último registro
+	//creates well the records in the DDBB, but when it is returned it reads the DTO without the autoincremented id, since this is assigned in the DDBB.
 	@PostMapping(path="/createMatches", consumes= "application/json")
 	public MatchDTO create(@RequestBody MatchDTO dto) {
 		
@@ -78,14 +77,14 @@ public class MatchController {
 		return service.create(dto);
 		
 	}
-	//Cuando creamos un partido, definimos un ganador, hay que comprobar el ganador y darle puntos
+	//When we create a match, we define a winner, we have to check the winner and give him points.
 	
 	
 	//------------------------UPDATE-----------------
 	
-	//IMPORTANTE siempre que hagamos una escritura en BBDD, debemos añadir @RequestBody en el parámetro de entrada.
+	//IMPORTANT whenever we make a writing in BBDD, we must add @RequestBody in the input parameter.
 	@PutMapping(path="/updateMatches", consumes="application/json")
-	//@RequestBody siempre antes del parametro de entrada
+	//@RequestBody always before the input parameter
 	public MatchDTO updateMatch(@RequestBody MatchDTO input){
 		
 		service.updateMatch(input);
@@ -94,9 +93,9 @@ public class MatchController {
 	}
 	
 	
-	//Para usar patch (Modificar solo algunos campos), tengo que crear un método nuevo en service.
+	//To use patch (Modify only some fields), I have to create a new method in service.
 	/*@PatchMapping(path="/updateMatches2", consumes="application/json")
-	//@RequestBody siempre antes del parametro de entrada
+	//@RequestBody always before the input parameter
 	public MatchDTO updateMatch2(@RequestBody MatchDTO input){
 		
 		service.updateMatch(input);
@@ -106,7 +105,7 @@ public class MatchController {
 	
 	//-----------------------DELETE------------------
 	
-	//Para el delete, ponemos la anotación @DeleteMapping y el path de acceso+id
+	//For the delete, we put the annotation @DeleteMapping and the access path+id
 	@DeleteMapping(path="/deleteMatches/{id}")
 	public void delete(@PathVariable(value = "id") int id) {
 
@@ -120,10 +119,9 @@ public class MatchController {
 	
 	@GetMapping(path= "/")
 	public List<MatchDTO> findByResultLocalVisitante(@RequestParam String name, @RequestParam(required = false) String isLocal) {
-		//Para lanzar la función o método deseado (almacenados en service) ponemos la instancia de service y . para elegir el método:
+		//To launch the desired function or method (stored in service) we put the instance of service and . to choose the method:		
 		
-		
-		//Condición para que devuelva una query u otra, en función del parametro isLocal
+		//Condition to return one query or another, depending on the isLocal parameter
 		if (isLocal.contentEquals("Local")) {
 		return service.findByResultLocal(name, isLocal);
 				

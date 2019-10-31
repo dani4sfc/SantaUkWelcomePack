@@ -39,7 +39,7 @@ public class PlayerEntity {
 	@Column(name = "POSITION")
 	private String position;
 	
-	//Comentamos este atributo, ya que en la relacion ManyToOne definimos el atributo con joinColumn.
+	//We comment on this attribute, since in the ManyToOne relationship we define the attribute with joinColumn.
 //	@Column(name = "IDTEAM")
 //	private int idTeam;
 	
